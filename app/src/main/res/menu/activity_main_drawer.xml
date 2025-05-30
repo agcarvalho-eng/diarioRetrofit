@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_novo_estudante"
+            android:icon="@drawable/estudante"
+            android:title="@string/novo_estudante1" />
+        <item
+            android:id="@+id/nav_estatisticas"
+            android:icon="@drawable/estatistica"
+            android:title="@string/estat_sticas1" />
+
+    </group>
+</menu>

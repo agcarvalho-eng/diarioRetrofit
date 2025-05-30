@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_inserir_nota"
+        android:title="@string/inserir_nota1"
+        android:icon="@drawable/nota" />
+    <item
+        android:id="@+id/nav_inserir_frequencia"
+        android:title="@string/inserir_frequ_ncia1"
+        android:icon="@drawable/presenca" />
+</menu>

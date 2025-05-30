@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.diarioestudanteretrofit.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_detalhesEstudanteFragment"
+            app:destination="@id/detalhesEstudanteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_novo_estudante"
+        android:name="com.example.diarioestudanteretrofit.ui.novoEstudante.NovoEstudanteFragment"
+        android:label="@string/novo_estudante"
+        tools:layout="@layout/fragment_novo_estudante" />
+
+    <fragment
+        android:id="@+id/nav_estatisticas"
+        android:name="com.example.diarioestudanteretrofit.ui.estatisticas.EstatisticasFragment"
+        android:label="@string/estat_sticas"
+        tools:layout="@layout/fragment_estatisticas" />
+
+    <fragment
+        android:id="@+id/detalhesEstudanteFragment"
+        android:name="com.example.diarioestudanteretrofit.ui.detalhes.DetalhesEstudanteFragment"
+        android:label="@string/detalhes_do_estudante"
+        tools:layout="@layout/fragment_detalhes_estudante">
+
+        <argument
+            android:name="ESTUDANTE_ID"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_detalhesEstudanteFragment_to_inserirNotaFragment"
+            app:destination="@id/inserirNotaFragment" />
+
+        <action
+            android:id="@+id/action_detalhesEstudanteFragment_to_inserirFrequenciaFragment"
+            app:destination="@id/inserirFrequenciaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inserirNotaFragment"
+        android:name="com.example.diarioestudanteretrofit.ui.inserir.InserirNotaFragment"
+        android:label="@string/inserir_nota"
+        tools:layout="@layout/fragment_inserir_nota">
+        <argument
+            android:name="ESTUDANTE_ID"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inserirFrequenciaFragment"
+        android:name="com.example.diarioestudanteretrofit.ui.inserir.InserirFrequenciaFragment"
+        android:label="@string/inserir_frequ_ncia"
+        tools:layout="@layout/fragment_inserir_frequencia">
+        <argument
+            android:name="ESTUDANTE_ID"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">DiarioEstudanteRetrofit</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="novo_estudante">Novo Estudante</string>
+    <string name="estat_sticas">Estatísticas</string>
+    <string name="detalhes_do_estudante">Detalhes do Estudante</string>
+    <string name="inserir_nota">Inserir Nota</string>
+    <string name="inserir_frequ_ncia">Inserir Frequência</string>
+    <string name="inserir_nota1">Inserir Nota</string>
+    <string name="inserir_frequ_ncia1">Inserir Frequência</string>
+    <string name="novo_estudante1">Novo Estudante</string>
+    <string name="estat_sticas1">Estatísticas</string>
+    <string name="di_rio_estudantil">Diário Estudantil</string>
+    <string name="nome_do_estudante">Nome do Estudante</string>
+    <string name="idade">Idade</string>
+    <string name="salvar">Salvar</string>
+    <string name="nota_0_0_10_0">Nota (0.0 - 10.0)</string>
+    <string name="salvar_nota">Salvar Nota</string>
+    <string name="registrar_presen_a">Registrar Presença</string>
+    <string name="presente">Presente</string>
+    <string name="salvar1">Salvar</string>
+    <string name="lista_de_estudantes">Lista de Estudantes</string>
+    <string name="m_dia_geral_0_00">Média geral: 0,00</string>
+    <string name="maior_nota_n_a">Maior nota: N/A</string>
+    <string name="menor_nota_n_a">Menor nota: N/A</string>
+    <string name="m_dia_de_idade_0">Média de idade: 0</string>
+    <string name="aprovados">Aprovados</string>
+    <string name="reprovados">Reprovados</string>
+</resources>
