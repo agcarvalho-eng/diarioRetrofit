@@ -22,6 +22,7 @@ public class EstatisticasViewModel extends ViewModel {
 
     private static final String TAG = "EstatisticasViewModel";
 
+    // LiveData para as estatísticas exibidas no fragmento
     private final MutableLiveData<Double> mediaGeral = new MutableLiveData<>(0.0);
     private final MutableLiveData<String> maiorNota = new MutableLiveData<>("N/A");
     private final MutableLiveData<String> menorNota = new MutableLiveData<>("N/A");
@@ -32,11 +33,15 @@ public class EstatisticasViewModel extends ViewModel {
 
     private final EstudanteRepositorio repositorio;
 
+    /**
+     * Construtor padrão que inicia o carregamento das estatísticas ao criar o ViewModel.
+     */
     public EstatisticasViewModel() {
         this.repositorio = EstudanteRetrofit.getEstudanteRepositorio();
         carregarEstatisticas();
     }
 
+    // Getters públicos para os LiveData utilizados na UI
     public LiveData<Double> getMediaGeral() {
         return mediaGeral;
     }
@@ -65,11 +70,14 @@ public class EstatisticasViewModel extends ViewModel {
         return isLoading;
     }
 
+    /**
+     * Inicia a requisição dos estudantes e, em seguida, coleta estatísticas detalhadas
+     * como média geral, maiores e menores notas, média de idade e status de aprovação.
+     */
     private void carregarEstatisticas() {
         Log.d(TAG, "Iniciando carregamento das estatísticas...");
         isLoading.setValue(true);
 
-        // Primeira busca para obter id, nome e idade dos estudantes
         repositorio.buscarEstudantes().enqueue(new Callback<List<Estudante>>() {
             @Override
             public void onResponse(Call<List<Estudante>> call, Response<List<Estudante>> response) {
@@ -77,8 +85,6 @@ public class EstatisticasViewModel extends ViewModel {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Estudante> estudantes = response.body();
                     Log.d(TAG, "Estudantes recebidos: " + estudantes.size());
-
-                    // Para cada estudante, buscar detalhes completos
                     buscarDetalhesEstudantes(estudantes);
                 } else {
                     Log.w(TAG, "Resposta mal sucedida ou corpo nulo!");
@@ -95,16 +101,18 @@ public class EstatisticasViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Para cada estudante retornado na primeira requisição, busca seus dados completos
+     * (como notas), garantindo estatísticas baseadas em dados atualizados.
+     */
     private void buscarDetalhesEstudantes(List<Estudante> estudantes) {
         if (estudantes == null || estudantes.isEmpty()) {
             Log.w(TAG, "Lista de estudantes vazia!");
             return;
         }
 
-        // Criar uma lista para armazenar os estudantes com os dados completos
         List<Estudante> estudantesCompletos = new ArrayList<>();
         for (Estudante estudante : estudantes) {
-            // Buscar os dados completos de cada estudante
             repositorio.buscarEstudantePorId(estudante.getId()).enqueue(new Callback<Estudante>() {
                 @Override
                 public void onResponse(Call<Estudante> call, Response<Estudante> response) {
@@ -112,7 +120,6 @@ public class EstatisticasViewModel extends ViewModel {
                         Estudante estudanteCompleto = response.body();
                         estudantesCompletos.add(estudanteCompleto);
 
-                        // Atualizar LiveData assim que todos os estudantes forem carregados
                         if (estudantesCompletos.size() == estudantes.size()) {
                             Log.d(TAG, "Todos os dados dos estudantes foram carregados.");
                             calcularEAtualizarEstatisticas(estudantesCompletos);
@@ -130,6 +137,10 @@ public class EstatisticasViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Com base na lista de estudantes completos, realiza os cálculos estatísticos
+     * e atualiza os LiveData correspondentes para que a UI seja atualizada.
+     */
     private void calcularEAtualizarEstatisticas(List<Estudante> estudantes) {
         if (estudantes == null || estudantes.isEmpty()) {
             Log.w(TAG, "Lista de estudantes vazia!");
@@ -158,7 +169,6 @@ public class EstatisticasViewModel extends ViewModel {
         List<Estudante> reprovadosList = CalculoEstatisticas.getReprovados(estudantes);
         Log.d(TAG, "Total de reprovados: " + (reprovadosList != null ? reprovadosList.size() : 0));
 
-        // Atualiza LiveData
         mediaGeral.setValue(mediaG);
         maiorNota.setValue(maiorStr);
         menorNota.setValue(menorStr);
@@ -167,6 +177,10 @@ public class EstatisticasViewModel extends ViewModel {
         reprovados.setValue(reprovadosList);
     }
 
+    /**
+     * Limpa os dados dos LiveData em caso de erro de carregamento, evitando
+     * exibição de dados inconsistentes ou desatualizados.
+     */
     private void limparDados() {
         mediaGeral.setValue(0.0);
         maiorNota.setValue("N/A");

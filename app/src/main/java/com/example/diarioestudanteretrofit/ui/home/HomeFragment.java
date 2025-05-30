@@ -16,26 +16,38 @@ import com.example.diarioestudanteretrofit.model.Estudante;
 
 import java.util.ArrayList;
 
+/**
+ * Fragmento principal que exibe a lista de estudantes.
+ * Permite navegar para os detalhes de um estudante ao clicar em um item.
+ */
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
     private EstudantesAdapter adapter;
 
+    /**
+     * Executado quando o fragmento é criado.
+     * Aqui é adicionado um listener para escutar o retorno de NovoEstudanteFragment.
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // ✅ Escuta o resultado do NovoEstudanteFragment
+        // Escuta o resultado do NovoEstudanteFragment
         getParentFragmentManager().setFragmentResultListener("novoEstudanteResult", this,
                 (requestKey, result) -> {
                     boolean salvo = result.getBoolean("novo_estudante_salvo", false);
                     if (salvo) {
-                        homeViewModel.carregarEstudantes(); // ✅ Recarrega estudantes
+                        // Recarrega a lista de estudantes se um novo foi salvo
+                        homeViewModel.carregarEstudantes();
                     }
                 });
     }
 
+    /**
+     * Cria a view do fragmento inflando o layout com view binding.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +55,10 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Método chamado após a view ser criada.
+     * Inicializa o ViewModel, configura o RecyclerView e os observers.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -57,12 +73,18 @@ public class HomeFragment extends Fragment {
         setupObservers();
     }
 
+    /**
+     * Configura o RecyclerView com o adaptador de estudantes e o listener de clique.
+     */
     private void setupRecyclerView() {
         adapter = new EstudantesAdapter(new ArrayList<>());
         adapter.setOnItemClickListener(this::onEstudanteClicado);
         binding.recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Observa as mudanças nos dados do ViewModel e atualiza a UI.
+     */
     private void setupObservers() {
         homeViewModel.getEstudantes().observe(getViewLifecycleOwner(), estudantes -> {
             if (estudantes != null) {
@@ -75,6 +97,10 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    /**
+     * Callback chamado quando um estudante é clicado.
+     * Navega para o fragmento de detalhes do estudante passando o ID.
+     */
     public void onEstudanteClicado(Estudante estudante) {
         if (estudante != null) {
             Bundle args = new Bundle();
@@ -85,11 +111,15 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /**
+     * Libera o binding para evitar memory leaks.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 }
+
 
 

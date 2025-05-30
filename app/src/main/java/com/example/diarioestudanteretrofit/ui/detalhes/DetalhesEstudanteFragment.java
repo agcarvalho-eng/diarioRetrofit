@@ -17,6 +17,10 @@ import androidx.navigation.Navigation;
 import com.example.diarioestudanteretrofit.R;
 import com.example.diarioestudanteretrofit.databinding.FragmentDetalhesEstudanteBinding;
 
+/**
+ * Fragment para exibir os detalhes do estudante.
+ * Oferece navegação para inserir nota ou frequência, além de permitir o retorno à tela inicial.
+ */
 public class DetalhesEstudanteFragment extends Fragment {
 
     private FragmentDetalhesEstudanteBinding binding;
@@ -27,7 +31,7 @@ public class DetalhesEstudanteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDetalhesEstudanteBinding.inflate(inflater, container, false);
-        setHasOptionsMenu(true); // Habilita o menu para interceptar "up" button
+        setHasOptionsMenu(true); // Habilita o menu para interceptar o botão "up"
         return binding.getRoot();
     }
 
@@ -39,31 +43,33 @@ public class DetalhesEstudanteFragment extends Fragment {
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
+        // Recupera o ID do estudante que foi passado como argumento
         estudanteId = getArguments() != null ? getArguments().getInt("ESTUDANTE_ID", -1) : -1;
 
+        // Se o ID do estudante for válido, carrega os detalhes
         if (estudanteId != -1) {
             viewModel.carregarEstudantePorId(estudanteId);
         }
 
-        // Atualiza a view com os dados do estudante
+        // Observa o LiveData do estudante e atualiza a view quando os dados mudam
         viewModel.getEstudante().observe(getViewLifecycleOwner(), estudante -> {
-            binding.invalidateAll();
+            binding.invalidateAll(); // Atualiza a view com os dados do estudante
         });
 
-        // Escuta se houve alteração ao voltar de inserir nota
+        // Ouve o resultado da inserção de nota
         getParentFragmentManager().setFragmentResultListener("resultado_nota", getViewLifecycleOwner(),
                 (requestKey, result) -> {
                     boolean notaInserida = result.getBoolean("NOTA_INSERIDA", false);
                     if (notaInserida && estudanteId != -1) {
-                        viewModel.carregarEstudantePorId(estudanteId);
+                        viewModel.carregarEstudantePorId(estudanteId); // Atualiza os dados do estudante
                     }
                 });
 
-        // Navegação para inserir nota ou frequência
+        // Configura o listener do BottomNavigation para navegação
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             NavController navController = Navigation.findNavController(view);
             Bundle bundle = new Bundle();
-            bundle.putInt("ESTUDANTE_ID", estudanteId);
+            bundle.putInt("ESTUDANTE_ID", estudanteId); // Passa o ID do estudante para os fragments
 
             if (item.getItemId() == R.id.nav_inserir_nota) {
                 navController.navigate(R.id.action_detalhesEstudanteFragment_to_inserirNotaFragment, bundle);
@@ -76,18 +82,21 @@ public class DetalhesEstudanteFragment extends Fragment {
             return false;
         });
 
-        // Habilita a seta de "voltar" no app bar (caso esteja usando toolbar customizada)
+        // Configura o título da ActionBar ou Toolbar personalizada
         requireActivity().setTitle("Detalhes do Estudante");
-        requireActivity().getActionBar(); // Só necessário se usar ActionBar padrão
     }
 
+    /**
+     * Intercepta o clique no botão "up" (seta de voltar) da ActionBar para garantir
+     * que o usuário retorne à tela inicial.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            // Força retorno direto ao HomeFragment, limpando a pilha
+            // Força o retorno direto ao HomeFragment, limpando a pilha de navegação
             NavController navController = Navigation.findNavController(requireView());
             navController.navigate(R.id.nav_home, null, new NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_home, true)
+                    .setPopUpTo(R.id.nav_home, true) // Limpa a pilha até o HomeFragment
                     .build());
             return true;
         }
@@ -97,9 +106,10 @@ public class DetalhesEstudanteFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        binding = null; // Libera o binding para evitar vazamento de memória
     }
 }
+
 
 
 
