@@ -25,4 +25,5 @@
     <string name="m_dia_de_idade_0">Média de idade: 0</string>
     <string name="aprovados">Aprovados</string>
     <string name="reprovados">Reprovados</string>
+    <string name="excluir_estudante">Excluir Estudante</string>
 </resources>

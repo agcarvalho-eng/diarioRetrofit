@@ -20,8 +20,8 @@ import com.example.diarioestudanteretrofit.databinding.FragmentInserirNotaBindin
  */
 public class InserirNotaFragment extends Fragment {
 
-    private FragmentInserirNotaBinding binding;   // Binding gerado automaticamente para o layout
-    private InserirNotaViewModel viewModel;      // ViewModel associado ao fragmento
+    private FragmentInserirNotaBinding binding;
+    private InserirNotaViewModel viewModel;
 
     /**
      * Método responsável por inflar o layout do fragmento.
@@ -73,7 +73,7 @@ public class InserirNotaFragment extends Fragment {
                 });
             } else {
                 // Caso a nota não seja válida, exibe um erro
-                binding.layoutNota.setError("Informe uma nota válida");
+                binding.layoutNota.setError("Informe uma nota válida!");
             }
         });
     }

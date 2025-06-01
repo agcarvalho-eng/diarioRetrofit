@@ -7,4 +7,8 @@
         android:id="@+id/nav_inserir_frequencia"
         android:title="@string/inserir_frequ_ncia1"
         android:icon="@drawable/presenca" />
+    <item
+        android:id="@+id/nav_excluir_estudante"
+        android:title="@string/excluir_estudante"
+        android:icon="@drawable/deletar" />
 </menu>

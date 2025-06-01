@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Configuração da AppBarConfiguration para determinar os destinos de navegação principais
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home)  // Defina os destinos de nível superior (como o Home)
+                R.id.nav_home)  // Define o destino de nível superior (Home)
                 .setOpenableLayout(drawer)  // Configura o Drawer Layout
                 .build();
 

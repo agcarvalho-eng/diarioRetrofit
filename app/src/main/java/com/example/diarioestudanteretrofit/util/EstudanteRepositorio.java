@@ -5,6 +5,7 @@ import com.example.diarioestudanteretrofit.model.Estudante;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -20,9 +21,12 @@ public interface EstudanteRepositorio {
     @GET("{id}")
     Call<Estudante> buscarEstudantePorId(@Path("id") int id);
 
-    @PUT("{id}") // Mudar de PATCH para PUT para substituir o recurso inteiro
+    @PUT("{id}") // Atualizar um recurso
     Call<Estudante> atualizarEstudante(@Path("id") int id, @Body Estudante estudante);
 
-    @POST("./")
+    @POST("./") // Criar um recurso
     Call<Estudante> criarEstudante(@Body Estudante estudante);
+
+    @DELETE("{id}")
+    Call<Void> deletarEstudante(@Path("id") int id);
 }

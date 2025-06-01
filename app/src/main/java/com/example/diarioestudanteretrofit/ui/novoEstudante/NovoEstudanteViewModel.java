@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 /**
  * ViewModel responsável pela lógica de criação de um novo estudante.
- * Ele gerencia os dados inseridos pelo usuário, validação dos campos e interação com o repositório para salvar o estudante.
+ * Gerencia os dados inseridos pelo usuário, valida os campos e interage com o repositório para salvar o estudante.
  */
 public class NovoEstudanteViewModel extends ViewModel {
 
@@ -79,21 +79,21 @@ public class NovoEstudanteViewModel extends ViewModel {
     public void salvarEstudante(Runnable onSuccess) {
         // Valida o nome
         if (nome.getValue() == null || nome.getValue().isEmpty()) {
-            errorMessage.setValue("Nome é obrigatório");
+            errorMessage.setValue("Nome é obrigatório!");
             return;
         }
 
         // Valida a idade
         if (idade.getValue() == null || idade.getValue().isEmpty()) {
-            errorMessage.setValue("Idade é obrigatória");
+            errorMessage.setValue("Idade é obrigatória!");
             return;
         }
 
         try {
-            // Converte a idade para inteiro e valida se é positiva
+            // Converte a idade para inteiro e verifica se é positiva
             int idadeInt = Integer.parseInt(idade.getValue());
             if (idadeInt <= 0) {
-                errorMessage.setValue("Idade deve ser positiva");
+                errorMessage.setValue("Idade deve ser positiva!");
                 return;
             }
 
@@ -109,12 +109,12 @@ public class NovoEstudanteViewModel extends ViewModel {
                 public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                     isLoading.setValue(false);
                     if (response.isSuccessful()) {
-                        Log.d("NovoEstudanteVM", "Estudante criado com sucesso");
+                        Log.d("NovoEstudanteVM", "Estudante criado com sucesso!");
                         // Se a operação for bem-sucedida, executa o callback onSuccess
                         if (onSuccess != null) onSuccess.run();
                     } else {
                         // Se houver erro na resposta, exibe uma mensagem de erro
-                        errorMessage.setValue("Erro ao criar estudante: " + response.code());
+                        errorMessage.setValue("Erro ao criar estudante!: " + response.code());
                     }
                 }
 
@@ -128,7 +128,7 @@ public class NovoEstudanteViewModel extends ViewModel {
             });
         } catch (NumberFormatException e) {
             // Se a idade não for um número válido, exibe uma mensagem de erro
-            errorMessage.setValue("Idade deve ser um número válido");
+            errorMessage.setValue("Idade deve ser um número válido!");
         }
     }
 

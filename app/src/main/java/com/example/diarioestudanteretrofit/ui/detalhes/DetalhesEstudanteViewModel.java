@@ -73,6 +73,32 @@ public class DetalhesEstudanteViewModel extends ViewModel {
     }
 
     /**
+     * Deletar um estudante a partir do ID fornecido.
+     * Faz uma requisição de rede assíncrona para deletar o estudante no servidor.
+     *
+     * @param id O ID do estudante a ser carregado.
+     */
+    public void excluirEstudante(int id) {
+        repositorio.deletarEstudante(id).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Estudante excluído com sucesso.");
+                    // Pode usar um LiveData para notificar a UI
+                    estudante.postValue(null); // ou criar outro LiveData se preferir
+                } else {
+                    Log.e(TAG, "Erro ao excluir estudante: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(TAG, "Falha ao excluir estudante: " + t.getMessage(), t);
+            }
+        });
+    }
+
+    /**
      * Recarrega os dados do estudante, se o estudante já estiver carregado.
      * Rechama a função para carregar o estudante usando o ID do estudante atual.
      */

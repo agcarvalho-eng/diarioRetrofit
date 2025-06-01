@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -54,6 +55,13 @@ public class DetalhesEstudanteFragment extends Fragment {
         // Observa o LiveData do estudante e atualiza a view quando os dados mudam
         viewModel.getEstudante().observe(getViewLifecycleOwner(), estudante -> {
             binding.invalidateAll(); // Atualiza a view com os dados do estudante
+            if (estudante == null) {
+                // Volta ao HomeFragment após exclusão
+                NavController navController = Navigation.findNavController(requireView());
+                navController.navigate(R.id.nav_home, null, new NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_home, true)
+                        .build());
+            }
         });
 
         // Ouve o resultado da inserção de nota
@@ -76,6 +84,9 @@ public class DetalhesEstudanteFragment extends Fragment {
                 return true;
             } else if (item.getItemId() == R.id.nav_inserir_frequencia) {
                 navController.navigate(R.id.action_detalhesEstudanteFragment_to_inserirFrequenciaFragment, bundle);
+                return true;
+            } else if (item.getItemId() == R.id.nav_excluir_estudante) {
+                mostrarDialogConfirmacaoExclusao();
                 return true;
             }
 
@@ -101,6 +112,21 @@ public class DetalhesEstudanteFragment extends Fragment {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Intercepta o clique no botão "Deletar" da NavigationBar para realizar a
+     * deleção do estudante mostrado.
+     */
+    private void mostrarDialogConfirmacaoExclusao() {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Excluir Estudante")
+                .setMessage("Tem certeza que deseja excluir este estudante?")
+                .setPositiveButton("Excluir", (dialog, which) -> {
+                    viewModel.excluirEstudante(estudanteId);
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
     @Override

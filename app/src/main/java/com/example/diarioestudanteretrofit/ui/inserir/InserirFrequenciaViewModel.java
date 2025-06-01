@@ -20,8 +20,8 @@ import retrofit2.Response;
 public class InserirFrequenciaViewModel extends ViewModel {
 
     private final EstudanteRepositorio repositorio;
-    private int estudanteId;               // ID do estudante para o qual a frequência será salva
-    private Boolean presencaSelecionada;    // Presença selecionada (presente ou ausente)
+    private int estudanteId;
+    private Boolean presencaSelecionada;
 
     /**
      * Construtor, inicializa o repositório do estudante.
@@ -92,11 +92,11 @@ public class InserirFrequenciaViewModel extends ViewModel {
             public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                 // Se a atualização for bem-sucedida, executa o callback onSucesso
                 if (response.isSuccessful()) {
-                    Log.d("FrequenciaVM", "Frequência atualizada com sucesso");
+                    Log.d("FrequenciaVM", "Frequência atualizada com sucesso!");
                     if (onSucesso != null) onSucesso.run();
                 } else {
                     // Caso ocorra um erro na atualização, imprime o código de erro
-                    Log.e("FrequenciaVM", "Erro ao atualizar: " + response.code());
+                    Log.e("FrequenciaVM", "Erro ao atualizar!: " + response.code());
                     try {
                         // Imprime a mensagem de erro do corpo da resposta
                         Log.e("FrequenciaVM", "Erro body: " + response.errorBody().string());

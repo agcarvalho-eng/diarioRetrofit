@@ -103,7 +103,7 @@ public class EstatisticasViewModel extends ViewModel {
 
     /**
      * Para cada estudante retornado na primeira requisição, busca seus dados completos
-     * (como notas), garantindo estatísticas baseadas em dados atualizados.
+     * (id, nome, idade, notas e frequência), garantindo estatísticas baseadas em dados atualizados.
      */
     private void buscarDetalhesEstudantes(List<Estudante> estudantes) {
         if (estudantes == null || estudantes.isEmpty()) {

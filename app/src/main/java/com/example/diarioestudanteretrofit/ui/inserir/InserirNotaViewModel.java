@@ -98,7 +98,7 @@ public class InserirNotaViewModel extends ViewModel {
             public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                 // Se a atualização for bem-sucedida, executa a ação de sucesso
                 if (response.isSuccessful()) {
-                    Log.d("NotaVM", "Nota atualizada com sucesso");
+                    Log.d("NotaVM", "Nota atualizada com sucesso!");
                     if (onSucesso != null) onSucesso.run();
                 } else {
                     // Se a atualização falhar, registra o erro

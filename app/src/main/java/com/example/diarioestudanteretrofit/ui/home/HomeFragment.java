@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
 
     /**
      * Executado quando o fragmento é criado.
-     * Aqui é adicionado um listener para escutar o retorno de NovoEstudanteFragment.
+     * Aqui é adicionado um listener para "escutar" o retorno quando da criação de novo estudante.
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Libera o binding para evitar memory leaks.
+     * Libera o binding para evitar vazamento de memória.
      */
     @Override
     public void onDestroyView() {

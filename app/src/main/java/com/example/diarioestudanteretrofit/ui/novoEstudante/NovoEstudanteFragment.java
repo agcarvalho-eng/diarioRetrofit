@@ -43,10 +43,10 @@ public class NovoEstudanteFragment extends Fragment {
 
     /**
      * Método chamado depois da criação da view.
-     * Aqui o ViewModel é configurado, os observers e listeners são configurados.
+     * O ViewModel é configurado, os observers e listeners são configurados.
      *
      * @param view A view do fragmento
-     * @param savedInstanceState Estado salvo, caso haja
+     * @param savedInstanceState Estado salvo, caso haja algum estado
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -102,7 +102,7 @@ public class NovoEstudanteFragment extends Fragment {
                 Navigation.findNavController(v).popBackStack();
 
                 // Exibe uma mensagem de sucesso
-                Snackbar.make(binding.getRoot(), "Estudante criado com sucesso", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.getRoot(), "Estudante criado com sucesso!", Snackbar.LENGTH_LONG).show();
             });
         });
     }

@@ -69,7 +69,7 @@ public class InserirFrequenciaFragment extends Fragment {
                 Bundle args = new Bundle();
                 args.putInt("ESTUDANTE_ID", estudanteId);
 
-                // Navega para o fragmento de detalhes (poderia ser ajustado com opções de popUpTo para limpeza da pilha)
+                // Navega para o fragmento de detalhes
                 navController.navigate(
                         R.id.detalhesEstudanteFragment,
                         args,
