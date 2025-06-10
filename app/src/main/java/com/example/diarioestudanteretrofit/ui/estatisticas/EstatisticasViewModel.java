@@ -115,6 +115,7 @@ public class EstatisticasViewModel extends ViewModel {
         for (Estudante estudante : estudantes) {
             repositorio.buscarEstudantePorId(estudante.getId()).enqueue(new Callback<Estudante>() {
                 @Override
+                // Método da interface Callback (objeto chamada original e resposta servidor)
                 public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         Estudante estudanteCompleto = response.body();

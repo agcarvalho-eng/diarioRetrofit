@@ -54,6 +54,7 @@ public class DetalhesEstudanteViewModel extends ViewModel {
     public void carregarEstudantePorId(int id) {
         repositorio.buscarEstudantePorId(id).enqueue(new Callback<Estudante>() {
             @Override
+            // Método da interface Callback (objeto chamada original e resposta servidor)
             public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                 if (response.isSuccessful()) {
                     Estudante estudanteResponse = response.body();

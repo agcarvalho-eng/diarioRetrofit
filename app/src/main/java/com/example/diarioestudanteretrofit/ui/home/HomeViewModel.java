@@ -60,6 +60,7 @@ public class HomeViewModel extends ViewModel implements LifecycleObserver {
     public void carregarEstudantes() {
         repositorio.buscarEstudantes().enqueue(new Callback<List<Estudante>>() {
             @Override
+            // Método da interface Callback (objeto chamada original e resposta servidor)
             public void onResponse(Call<List<Estudante>> call, Response<List<Estudante>> response) {
                 if (response.isSuccessful()) {
                     // Atualiza a lista se a resposta for bem-sucedida

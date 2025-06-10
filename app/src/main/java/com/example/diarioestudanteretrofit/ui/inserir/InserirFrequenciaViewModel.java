@@ -32,7 +32,6 @@ public class InserirFrequenciaViewModel extends ViewModel {
 
     /**
      * Define o ID do estudante que terá a frequência registrada.
-     *
      * @param id ID do estudante
      */
     public void setEstudanteId(int id) {
@@ -50,7 +49,6 @@ public class InserirFrequenciaViewModel extends ViewModel {
 
     /**
      * Salva a frequência do estudante. Se a presença não foi selecionada, não faz nada.
-     *
      * @param onSucesso Runnable que será executado após a frequência ser salva com sucesso
      */
     public void salvarFrequencia(Runnable onSucesso) {
@@ -62,6 +60,7 @@ public class InserirFrequenciaViewModel extends ViewModel {
         // Busca o estudante pelo ID para adicionar a presença selecionada
         repositorio.buscarEstudantePorId(estudanteId).enqueue(new Callback<Estudante>() {
             @Override
+            // Método da interface Callback (objeto chamada original e resposta servidor)
             public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                 // Se a resposta for bem-sucedida e o corpo não for nulo, adiciona a presença
                 if (response.isSuccessful() && response.body() != null) {
@@ -89,6 +88,7 @@ public class InserirFrequenciaViewModel extends ViewModel {
         // Realiza a atualização do estudante no servidor
         repositorio.atualizarEstudante(estudanteId, estudante).enqueue(new Callback<Estudante>() {
             @Override
+            // Método da interface Callback (objeto chamada original e resposta servidor)
             public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                 // Se a atualização for bem-sucedida, executa o callback onSucesso
                 if (response.isSuccessful()) {

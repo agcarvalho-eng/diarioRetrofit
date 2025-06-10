@@ -47,7 +47,6 @@ public class InserirNotaViewModel extends ViewModel {
 
     /**
      * Salva a nota do estudante, validando e realizando a atualização do estudante no servidor.
-     *
      * @param onSucesso Runnable a ser executado caso a operação seja bem-sucedida
      */
     public void salvarNota(Runnable onSucesso) {
@@ -67,6 +66,7 @@ public class InserirNotaViewModel extends ViewModel {
         // Realiza a busca do estudante no servidor
         repositorio.buscarEstudantePorId(estudanteId).enqueue(new Callback<Estudante>() {
             @Override
+            // Método da interface Callback (objeto chamada original e resposta servidor)
             public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                 // Se a resposta for bem-sucedida, e o estudante não for nulo
                 if (response.isSuccessful() && response.body() != null) {
@@ -87,7 +87,6 @@ public class InserirNotaViewModel extends ViewModel {
 
     /**
      * Atualiza os dados do estudante no servidor após a modificação da nota.
-     *
      * @param estudante O estudante com a nova nota a ser atualizada
      * @param onSucesso Runnable a ser executado após a atualização bem-sucedida
      */
@@ -95,6 +94,7 @@ public class InserirNotaViewModel extends ViewModel {
         // Envia a atualização para o servidor
         repositorio.atualizarEstudante(estudanteId, estudante).enqueue(new Callback<Estudante>() {
             @Override
+            // Método da interface Callback (objeto chamada original e resposta servidor)
             public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                 // Se a atualização for bem-sucedida, executa a ação de sucesso
                 if (response.isSuccessful()) {

@@ -106,6 +106,7 @@ public class NovoEstudanteViewModel extends ViewModel {
             // Realiza a chamada para salvar o estudante no servidor
             repositorio.criarEstudante(novoEstudante).enqueue(new Callback<Estudante>() {
                 @Override
+                // Método da interface Callback (objeto chamada original e resposta servidor)
                 public void onResponse(Call<Estudante> call, Response<Estudante> response) {
                     isLoading.setValue(false);
                     if (response.isSuccessful()) {
